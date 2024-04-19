@@ -20,7 +20,6 @@ jobs:
           pip install requests
           pip install gspread
           pip install oauth2client
-          pip install time
           pip install gspread_dataframe
 
       - name: execute py script # run main.py
