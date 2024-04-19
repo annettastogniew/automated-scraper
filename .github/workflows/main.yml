@@ -1,7 +1,9 @@
 name: run scraper
 on:
   schedule:
-    - cron:  '*/5 * * * *'
+    - cron:  '* 13 * * * *'
+    # schedule action to run every day at 1:00 PM UTC (9:00 AM ET)
+    # * is a special character in yml, so this string needs to be enclosed in quotes
 
 jobs:
   build:
