@@ -1,0 +1,28 @@
+name: run cal-oes-scraper.ipynb
+
+on:
+  schedule:
+    - cron:  '0 13 * * *'
+    # This runs at 1:00 PM UTC (9:00 AM EST) each day.
+    # * is a special character in YAML so you have to quote this string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.8' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas
+          pip install requests
+
+      - name: execute py script # run main.py
+        run: python cal-oes-scraper.ipynb
