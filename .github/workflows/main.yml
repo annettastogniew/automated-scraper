@@ -1,8 +1,7 @@
-name: run cal-oes-scraper.ipynb
-
+name: run scraper
 on:
   schedule:
-    - cron:  '0 16 * * *'
+    - cron:  '*/5 * * * *'
     # This runs at 4:00 PM UTC (12:00 PM EST) each day.
     # * is a special character in YAML so you have to quote this string
 
