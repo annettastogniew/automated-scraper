@@ -1,0 +1,41 @@
+name: run cal-oes-scraper.ipynb
+
+on:
+  schedule:
+    - cron:  '0 13 * * *'
+    # This runs at 1:00 PM UTC (9:00 AM EST) each day.
+    # * is a special character in YAML so you have to quote this string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content
+
+      - name: Setup Python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.11.8' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas
+          pip install requests
+
+      - name: execute py script # run main.py
+        run: python cal-oes-scraper.ipynb
+
+      - name: commit files
+        run: |
+          git config --local user.email "annettastogniew@gmail.com"
+          git config --local user.name "Github Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+
+      - name: push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 
