@@ -2,8 +2,8 @@ name: run cal-oes-scraper.ipynb
 
 on:
   schedule:
-    - cron:  '0 13 * * *'
-    # This runs at 1:00 PM UTC (9:00 AM EST) each day.
+    - cron:  '0 16 * * *'
+    # This runs at 4:00 PM UTC (12:00 PM EST) each day.
     # * is a special character in YAML so you have to quote this string
 
 jobs:
