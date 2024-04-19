@@ -91,7 +91,7 @@ bay_df = df.loc[df["County"].isin(bay_counties)]
 
 # filter for PGE outages
 pge_df = bay_df.loc[df["UtilityCompany"] == "PGE"]
-pge_df.to_csv("oes_pge_outages_actions.csv")
+pge_df.to_csv("oes_pge_outages.csv")
 
 
 # # Push to Google sheets
