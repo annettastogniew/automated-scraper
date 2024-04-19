@@ -1,9 +1,5 @@
 name: run scraper
-on:
-  schedule:
-    - cron:  '*/10 * * * *'
-    # This runs at 4:00 PM UTC (12:00 PM EST) each day.
-    # * is a special character in YAML so you have to quote this string
+on: push
 
 jobs:
   build:
