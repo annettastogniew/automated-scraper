@@ -1,0 +1,8 @@
+,type,id,geometry,OBJECTID,UtilityCompany,StartDate,EstimatedRestoreDate,Cause,ImpactedCustomers,County,OutageStatus,OutageType,GlobalID,OutageTypeColor,OutageStatusColor,IncidentId
+23,Feature,31918214,"{'type': 'Point', 'coordinates': [-122.39572, 37.59435]}",31918214,PGE,1713480764000,1713500160000.0,,69,SAN MATEO,Active,Not Planned,b57af438-3bbb-41d4-bec3-675c68248b69,#ffaa00,,2434361
+25,Feature,31918216,"{'type': 'Point', 'coordinates': [-122.37296, 38.33464]}",31918216,PGE,1713507960000,1713544200000.0,PATROLLING,15,NAPA,Active,Not Planned,fa4948ea-8bc4-4990-afcc-e10bcbe208e5,#ffaa00,,2434480
+30,Feature,31918221,"{'type': 'Point', 'coordinates': [-122.35024, 37.95652]}",31918221,PGE,1713530415000,1713560400000.0,,26,CONTRA COSTA,Active,Not Planned,e033b22f-408f-4189-8748-2c18767bacf4,#ffaa00,,2434553
+36,Feature,31918227,"{'type': 'Point', 'coordinates': [-122.7702, 38.4672]}",31918227,PGE,1713533811000,1713541500000.0,PLNND SHUTDOWN,86,SONOMA,Active,Planned,f8aa16fd-bf72-4164-a8b9-2c21f85affc6,#a8a800,,2434575
+39,Feature,31918230,"{'type': 'Point', 'coordinates': [-122.01749, 37.59527]}",31918230,PGE,1713534780000,1713551400000.0,,125,ALAMEDA,Active,Not Planned,3d973d1f-6b1e-498e-8655-601be680dc27,#ffaa00,,2434580
+40,Feature,31918231,"{'type': 'Point', 'coordinates': [-122.56476, 38.08155]}",31918231,PGE,1713535385000,1713543300000.0,,1,MARIN,Active,Not Planned,37c0bfa5-783d-4bd2-afcb-40582f02b60f,#ffaa00,,2434581
+48,Feature,31918239,"{'type': 'Point', 'coordinates': [-122.29053, 38.37627]}",31918239,PGE,1713536754000,1713573000000.0,,1,NAPA,Active,Not Planned,f96b64a2-9c9d-4f30-a20d-763bb1426d69,#ffaa00,,2434630
