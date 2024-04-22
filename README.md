@@ -55,21 +55,21 @@ The .github/workflows/main.yml creates a Github Actions workflow to automate the
 ## How to automate script
 To automatically run your script at a certain time interval, you will need to add a yml file to your repository. You can either manually add it to your repo at .github/workflows/\[your-file\].yml (the period before github is important and should be included in your directory name), or you can navigate to the Actions tab on your repo's homepage in Github. There, you can click the "set up a workflow yourself" hyperlink, which will create a main.yml file at the correct filepath in your repository. 
 
-In the yml file, you should name your workflow. In this repository, the workflow is named "run scraper." To add the name of your workflow to the yml file, write the following on the first line of the yml file:
+In the yml file, you first need to name your workflow. In this repository, the workflow is named "run scraper." To add the name of your workflow to the yml file, write the following on the first line:
 
 ```
-name: [workflow-name-here]
+name: run scraper
 ```
 
-On the next line, you will need to specify when the workflow should run. The workflow can depend on a specific time or action. To specify a time at which the script should run, you'll need to use [cron syntax](https://docs.gitlab.com/ee/topics/cron/). You can check the interpretation of your cron syntax [here](https://crontab.guru/). The code snippet below is an example of how to schedule your workflow to run everyday at 9:00 AM ET.
+On the next line, you can specify under which conditions the workflow should run. The workflow can depend on a specific time or action. To specify a time at which the script should run, you'll need to use [cron syntax](https://docs.gitlab.com/ee/topics/cron/). You can check the interpretation of your cron syntax [here](https://crontab.guru/). The code snippet below is an example of how to schedule your workflow to run everyday at 9:00 AM ET.
 
 ```
 on:
   schedule:
-    - cron:  '[time-interval-in-cron]'
+    - cron '0 13 * * *'
 ```
 
-For more complex repositories, you can schedule multiple jobs to run in your workflow. For a simple scraper, you'll just need one job with one build. The generic starter syntax for a yml workflow is:
+For more complex repositories, you can schedule multiple jobs to run during your workflow. For a simple scraper, you should only need one job with one build. To add this job, paste the following code onto the next few lines:
 
 ```
 jobs:
@@ -78,34 +78,38 @@ jobs:
   steps:
 ```
 
-Followed by a list of steps the workflow should follow. For this scraper, the workflow first uses the [actions/checkout](https://github.com/actions/checkout) package to navigate the current repository.
+Next, you will need to list the steps for this job. Each step has a name, and some syntax for what that step does. For this scraper, the job first uses the [actions/checkout](https://github.com/actions/checkout) package to navigate the current repository.
 
 ```
-- name: checkout repo content
-    uses: actions/checkout@v4.1.1 
+    - name: checkout repo content
+        uses: actions/checkout@v4.1.1 
 ```
 
 The next two step use the [actions/setup-python](https://github.com/actions/setup-python) package to install the specified version on python, and pip to install the specified packages. 
 
 ```
-- name: Setup Python
-    uses: actions/setup-python@v5.1.0
-    with:
-        python-version: '3.11.8'
-- name: install python packages
-    run: |
-        python -m pip install --upgrade pip
-        [one line for each library, with this syntax: pip install package-name]
+    - name: Setup Python
+        uses: actions/setup-python@v5.1.0
+        with:
+            python-version: '3.11.8'
+    - name: install python packages
+        run: |
+            python -m pip install --upgrade pip
+              pip install pandas
+              pip install requests
+              pip install gspread
+              pip install oauth2client
+              pip install gspread_dataframe
 ```
 
-Once the workflow has been set up, it runs the python script.
+Once the job has been set up, it runs the python script (called cal-oes-scraper.py in this repository).
 
 ```
 - name: execute py script 
-        run: python [python-script-name]
+        run: python cal-oes-scraper.py
 ```
 
-The workflow can also commit and push any changes it makes to the repository. In order to allow the workflow to push changes, you need to navigate to your repository' settings. Under Actions > General, scroll to "Workflow permissions" and select Read and write permissions. Then click save.
+The job can also commit and push any changes it makes to the repository. To allow the workflow to push changes, you need to navigate to your repository settings. Under Actions > General, scroll to "Workflow permissions" and select "Read and write permissions." Then click Save.
 
 ```
 - name: commit files
@@ -119,7 +123,7 @@ The workflow can also commit and push any changes it makes to the repository. In
     uses: ad-m/github-push-action@v0.8.0
     with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-         branch: [desired-branch]
+         branch: main
 ```
 
 Once you have filled out your yml file with the correct information, commit your changes and push the file to your repository. The workflow will run at your specified time interval. You can check the workflow runs in the Actions tab of your repository's homepage on Github.
