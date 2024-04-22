@@ -129,4 +129,5 @@ The job can also commit and push any changes it makes to the repository. To allo
 Once you have filled out your yml file with the correct information, commit your changes and push the file to your repository. The workflow will run at your specified time interval. You can check the workflow runs in the Actions tab of your repository's homepage on Github.
 
 ## TODO
-Figure out how to implement a requirements.txt file to install all packages.
+- Figure out how to implement a requirements.txt file to install all packages.
+- Figure out how to authenticate gspread in yml file.
