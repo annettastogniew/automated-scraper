@@ -55,7 +55,7 @@ The .github/workflows/main.yml creates a Github Actions workflow to automate the
 ## How to automate script
 To automatically run your script at a certain time interval, you will need to add a yml file to your repository. You can either manually add it to your repo at .github/workflows/\[your-file\].yml (the period before github is important and should be included in your directory name), or you can navigate to the Actions tab on your repo's homepage in Github. There, you can click the "set up a workflow yourself" hyperlink, which will create a main.yml file at the correct filepath in your repository. 
 
-In the yml file, you should name your workflow. In this repository, the workflow is named "run scraper". To add the name of your workflow to the yml file, write the following in the first line of the yml file:
+In the yml file, you should name your workflow. In this repository, the workflow is named "run scraper." To add the name of your workflow to the yml file, write the following on the first line of the yml file:
 
 ```
 name: [workflow-name-here]
