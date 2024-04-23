@@ -1,6 +1,8 @@
 # automated-scraper
 This repository is an example of how you can use Github Actions to automate a python script. It was created in part using [this tutorial](https://www.python-engineer.com/posts/run-python-github-actions/).
 
+**NOTE:** This repository is missing the auth.json file, to protect authentication information.
+
 ## TL;DR
 Go to the Actions tab on your repository's homepage and click "set up a workflow yourself." Paste the following content into the file that is created, and change information in brackets to the correct information for your repository. 
 
@@ -27,7 +29,7 @@ jobs:
         run: python [python-script-name]
     - name: commit files
         run: |
-            git config --local user.email "[email-to-receive-build-notifications]"
+            git config --local user.email "action@github.com"
             git config --local user.name "Github Action"
             git add -A
             git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
@@ -50,7 +52,7 @@ The repository also includes a .gitignore file to ensure local files that are no
 
 The .github/workflows/main.yml creates a Github Actions workflow to automate the script.
 
-**Note:** It seems that Github Actions doesn't like Jupyter Notebook (.ipynb) files. If you're working in Jupyter Notebook, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
+**NOTE:** It seems that Github Actions doesn't like Jupyter Notebook (.ipynb) files. If you're working in Jupyter Notebook, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
 
 ## How to automate script
 To automatically run your script at a certain time interval, you will need to add a yml file to your repository. You can either manually add it to your repo at .github/workflows/\[your-file\].yml (the period before github is important and should be included in your directory name), or you can navigate to the Actions tab on your repo's homepage in Github. There, you can click the "set up a workflow yourself" hyperlink, which will create a main.yml file at the correct filepath in your repository. 
@@ -114,7 +116,7 @@ The job can also commit and push any changes it makes to the repository. To allo
 ```
 - name: commit files
     run: |
-        git config --local user.email "[email-to-receive-build-notifications]"
+        git config --local user.email "action@github.com"
         git config --local user.name "Github Action"
         git add -A
         git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
