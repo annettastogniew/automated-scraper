@@ -28,7 +28,7 @@ jobs:
 
       - name: execute py script # run main.py
         env:
-            SOME_SECRET: ${{ secrets.auth_credentials }}
+            AUTH_CREDENTIALS: ${{ secrets.AUTH_CREDENTIALS }}
         run: python cal-oes-scraper.py
 
       - name: commit files

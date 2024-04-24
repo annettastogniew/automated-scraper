@@ -6,7 +6,6 @@ import pandas as pd
 import os
 # google sheets libraries
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from time import gmtime, strftime
 
@@ -14,7 +13,7 @@ from time import gmtime, strftime
 # # Google sheets setup
 # google sheets authentication
 try:
-    credentials = os.environ["auth_credentials"]
+    credentials = os.environ["AUTH_CREDENTIALS"]
 except KeyError:
     credentials = "Token not available!"
 gc = gspread.authorize(credentials)
