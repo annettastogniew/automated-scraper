@@ -148,7 +148,7 @@ So the whole step for running your script should look something like:
 - name: execute py script
   env:
     AUTH_CREDENTIALS: ${{ secrets.AUTH_CREDENTIALS }}
-  run: python [your-script]
+  run: python cal-oes-scraper.py
 ```
 
 You can now access the secret in your python script by importing the [os module](https://www.w3schools.com/python/module_os.asp) and calling `os.environ["SECRET_NAME"]`. The secret automatically saves as a string in the python script. To use the secret for gspread, you need to change it from a string to a dictionary and call gspread.service_account_from_dict(). 
