@@ -1,8 +1,6 @@
 # automated-scraper
 This repository is an example of how you can use Github Actions to automate a python script. It was created in part using [this tutorial](https://www.python-engineer.com/posts/run-python-github-actions/).
 
-**NOTE:** This repository is missing the auth.json file, to protect authentication information.
-
 ## TL;DR
 Go to the Actions tab on your repository's homepage and click "set up a workflow yourself." Paste the following content into the file that is created, and change information in brackets to the correct information for your repository. 
 
