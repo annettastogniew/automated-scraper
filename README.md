@@ -48,7 +48,7 @@ Your workflow should run automatically according to your specifications. For ref
 To authenticate gspread for Google Sheets use, check out the [Push to Google Sheets](#push-to-google-sheets) part of this README.
 
 ## Repository structure
-This repository includes a python script that pulls data from [Cal OES](https://gis.data.ca.gov/datasets/CalEMA::power-outage-incidents/explore) power outage API. The script pulls data from the API and pushes results to both a Google sheet (auth.json needed for authentication) and a csv file (oes-pge-outages.csv). 
+This repository includes a python script that pulls data from [Cal OES](https://gis.data.ca.gov/datasets/CalEMA::power-outage-incidents/explore) power outage API. The script pulls data from the API and pushes results to both a Google sheet and a csv file (oes-pge-outages.csv). 
 
 The repository also includes a .gitignore file to ensure local files that are not essential to the repository are not pushed to Github. 
 
@@ -164,6 +164,3 @@ except KeyError:
     credentials = "Token not available!"
 gc = gspread.service_account_from_dict(credentials)
 ```
-
-## TODO
-- Figure out how to implement a requirements.txt file to install all packages.
