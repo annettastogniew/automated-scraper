@@ -32,7 +32,7 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "Github Action"
             git add -A
-            git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
+            git diff-index --quiet HEAD || (git commit -a -m "[commit-message]" --allow-empty)
 
     - name: GitHub Push
         uses: ad-m/github-push-action@v0.8.0
@@ -45,6 +45,8 @@ Commit and push your changes to the file. Go to your repository's settings, and 
 
 Your workflow should run automatically according to your specifications. For reference on cron time syntax, look [here](https://docs.gitlab.com/ee/topics/cron/) and [here](https://crontab.guru/).
 
+To authenticate gspread for Google Sheets use, check out the [Push to Google Sheets](#push-to-google-sheets) part of this README.
+
 ## Repository structure
 This repository includes a python script that pulls data from [Cal OES](https://gis.data.ca.gov/datasets/CalEMA::power-outage-incidents/explore) power outage API. The script pulls data from the API and pushes results to both a Google sheet (auth.json needed for authentication) and a csv file (oes-pge-outages.csv). 
 
@@ -54,7 +56,7 @@ The .github/workflows/main.yml creates a Github Actions workflow to automate the
 
 **NOTE:** It seems that Github Actions doesn't like Jupyter Notebook (.ipynb) files. If you're working in Jupyter Notebook, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
 
-## How to automate script
+## Automate script
 To automatically run your script at a certain time interval, you will need to add a yml file to your repository. You can either manually add it to your repo at .github/workflows/\[your-file\].yml (the period before github is important and should be included in your directory name), or you can navigate to the Actions tab on your repo's homepage in Github. There, you can click the "set up a workflow yourself" hyperlink, which will create a main.yml file at the correct filepath in your repository. 
 
 In the yml file, you first need to name your workflow. In this repository, the workflow is named "run scraper." To add the name of your workflow to the yml file, write the following on the first line:
@@ -130,6 +132,38 @@ The job can also commit and push any changes it makes to the repository. To allo
 
 Once you have filled out your yml file with the correct information, commit your changes and push the file to your repository. The workflow will run at your specified time interval. You can check the workflow runs in the Actions tab of your repository's homepage on Github.
 
+## Push to Google Sheets
+The python script in this repository uses the [gspread](https://docs.gspread.org/en/v6.0.0/) library to push data to Google Sheets. Gspread requires authentication to access Google Sheets, either througha a real Google account or through an automated service account. The python script in this repository uses a service account to authenticate, which requires an authentication key. The key can be obtained from an existinig auth.json file, or by following the directions [here](https://docs.gspread.org/en/latest/oauth2.html). 
+
+An authentication key should be hidden from the public.  One way to do this is to store it as a repository secret. To do this, go to your repository's settings, then Secrets and variables > Actions > Repository secrets > New repository secret. Name your secret (`AUTH_CREDENTIALS` in this repo - secrets automatically have names in all caps). Paste your auth information into the "Secret" field. To access this secret in your script, you first need to add it to your environment through your yml file.
+
+In .github/workflows/main.yml, paste the following code on the line before your python script is run and fill in the name of your repository secret.
+
+```
+env:
+  [SECRET_NAME]: ${{ secrets.[SECRET_NAME] }}
+```
+
+So the whole step for running your script should look something like:
+
+```
+- name: execute py script
+  env:
+    [SECRET_NAME]: ${{ secrets.[SECRET_NAME]S }}
+  run: python [your-script]
+```
+
+You can now access the secret in your python script by importing the [os module](https://www.w3schools.com/python/module_os.asp) and calling `os.environ\["SECRET_NAME"\]`. The secret automatically saves as a string in the python script. To use the secret for gspread, you need to change it from a string to a dictionary and call gspread.service_account_from_dict(). 
+
+```
+import os 
+
+try:
+    credentials = json.loads(os.environ["AUTH_CREDENTIALS"])
+except KeyError:
+    credentials = "Token not available!"
+gc = gspread.service_account_from_dict(credentials)
+```
+
 ## TODO
 - Figure out how to implement a requirements.txt file to install all packages.
-- Figure out how to authenticate gspread in yml file.
