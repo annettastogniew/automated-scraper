@@ -8,7 +8,7 @@ import os
 import gspread
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from time import gmtime, strftime
-
+import sys
 
 # # Google sheets setup
 # google sheets authentication
@@ -16,6 +16,10 @@ try:
     credentials = os.environ["AUTH_CREDENTIALS"]
 except KeyError:
     credentials = "Token not available!"
+sys.stdout.write("ENVIRON: ")
+sys.stdout.write(os.environ)
+sys.stdout.write("TOKEN: ")
+sys.stdout.write(credentials)
 gc = gspread.authorize(credentials)
 # access sheet
 sht = gc.open_by_url('https://docs.google.com/spreadsheets/d/1WVH-SQ0ziAxLeEm2dm5P3i31Mmr9jmWYWwcMRd6vZGc/edit?usp=sharing')
