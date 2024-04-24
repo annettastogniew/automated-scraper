@@ -4,7 +4,7 @@ This repository is an example of how you can use Github Actions to automate a py
 ## TL;DR
 Go to the Actions tab on your repository's homepage and click "set up a workflow yourself." Paste the following content into the file that is created, and change information in brackets to the correct information for your repository. 
 
-```
+``` yml
 name: [workflow-name-here]
 on:
   schedule:
@@ -59,13 +59,13 @@ To automatically run your script at a certain time interval, you will need to ad
 
 In the yml file, you first need to name your workflow. In this repository, the workflow is named "run scraper." To add the name of your workflow to the yml file, write the following on the first line:
 
-```
+``` yml
 name: run scraper
 ```
 
 On the next line, you can specify under which conditions the workflow should run. The workflow can depend on a specific time or action. To specify a time at which the script should run, you'll need to use [cron syntax](https://docs.gitlab.com/ee/topics/cron/). You can check the interpretation of your cron syntax [here](https://crontab.guru/). The code snippet below is an example of how to schedule your workflow to run everyday at 9:00 AM ET.
 
-```
+``` yml
 on:
   schedule:
     - cron '0 13 * * *'
@@ -73,7 +73,7 @@ on:
 
 For more complex repositories, you can schedule multiple jobs to run during your workflow. For a simple scraper, you should only need one job with one build. To add this job, paste the following code onto the next few lines:
 
-```
+``` yml
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -82,14 +82,14 @@ jobs:
 
 Next, you will need to list the steps for this job. Each step has a name, and some syntax for what that step does. For this scraper, the job first uses the [actions/checkout](https://github.com/actions/checkout) package to navigate the current repository.
 
-```
+``` yml
     - name: checkout repo content
         uses: actions/checkout@v4.1.1 
 ```
 
 The next two step use the [actions/setup-python](https://github.com/actions/setup-python) package to install the specified version on python, and pip to install the specified packages. 
 
-```
+``` yml
     - name: Setup Python
         uses: actions/setup-python@v5.1.0
         with:
@@ -106,14 +106,14 @@ The next two step use the [actions/setup-python](https://github.com/actions/setu
 
 Once the job has been set up, it runs the python script (called cal-oes-scraper.py in this repository).
 
-```
+``` yml
 - name: execute py script 
         run: python cal-oes-scraper.py
 ```
 
 The job can also commit and push any changes it makes to the repository. To allow the workflow to push changes, you need to navigate to your repository settings. Under Actions > General, scroll to "Workflow permissions" and select "Read and write permissions." Then click Save.
 
-```
+``` yml
 - name: commit files
     run: |
         git config --local user.email "action@github.com"
@@ -137,7 +137,7 @@ An authentication key should be hidden from the public.  One way to do this is t
 
 In .github/workflows/main.yml, paste the following code on the line before your python script is run and fill in the name of your repository secret.
 
-```
+``` yml
 env:
   SECRET_NAME: ${{ secrets.SECRET_NAME }}
 ```
