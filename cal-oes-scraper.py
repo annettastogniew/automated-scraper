@@ -16,7 +16,7 @@ try:
     credentials = json.loads(os.environ["AUTH_CREDENTIALS"])
 except KeyError:
     credentials = "Token not available!"
-gc = gspread.authorize(credentials)
+gc = gspread.service_account_from_dict(credentials)
 # access sheet
 sht = gc.open_by_url('https://docs.google.com/spreadsheets/d/1WVH-SQ0ziAxLeEm2dm5P3i31Mmr9jmWYWwcMRd6vZGc/edit?usp=sharing')
 tab = sht.worksheet("test")
