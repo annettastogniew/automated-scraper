@@ -52,7 +52,7 @@ The repository also includes a .gitignore file to ensure local files that are no
 
 The .github/workflows/main.yml file creates a Github Actions workflow to automate the script.
 
-**NOTE:** It seems that Github Actions doesn't like Jupyter Notebook (.ipynb) files. If you're working in Jupyter Notebook, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
+**NOTE:** It's a bit complicted to run a Jupyter Notebook (.ipynb) file with Github Actions. If you're working in Jupyter Notebook, it's generally simpler to convert it to a regular python file and use that in your repository. To do that, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
 
 ## Automate script
 To automatically run your script at a certain time interval, you will need to add a yml file to your repository. You can either manually add it to your repo at .github/workflows/\[your-file\].yml (the period before github is important and should be included in your directory name), or you can navigate to the Actions tab on your repo's homepage in Github. There, you can click the "set up a workflow yourself" hyperlink, which will create a main.yml file at the correct filepath in your repository. 
