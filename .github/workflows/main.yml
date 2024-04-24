@@ -1,7 +1,7 @@
 name: run scraper
-on:
-  schedule:
-    - cron:  '0 13 * * *'
+on: push  
+  #schedule:
+    #- cron:  '0 13 * * *'
     # schedule action to run every day at 1:00 PM UTC (9:00 AM ET)
     # * is a special character in yml, so this string needs to be enclosed in quotes
 
@@ -27,6 +27,8 @@ jobs:
           pip install gspread_dataframe
 
       - name: execute py script # run main.py
+        env:
+            SOME_SECRET: ${{ secrets.auth_credentials }}
         run: python cal-oes-scraper.py
 
       - name: commit files
@@ -41,3 +43,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main 
+
