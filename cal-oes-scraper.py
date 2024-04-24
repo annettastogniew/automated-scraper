@@ -16,8 +16,6 @@ try:
     credentials = os.environ["AUTH_CREDENTIALS"]
 except KeyError:
     credentials = "Token not available!"
-sys.stdout.write("ENVIRON: ")
-sys.stdout.write(os.environ)
 sys.stdout.write("TOKEN: ")
 sys.stdout.write(credentials)
 gc = gspread.authorize(credentials)
