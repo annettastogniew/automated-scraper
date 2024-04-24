@@ -135,11 +135,11 @@ The python script in this repository uses the [gspread](https://docs.gspread.org
 
 An authentication key should be hidden from the public.  One way to do this is to store it as a repository secret. To do this, go to your repository's settings, then Secrets and variables > Actions > Repository secrets > New repository secret. Name your secret (`AUTH_CREDENTIALS` in this repo - secrets automatically have names in all caps). Paste your auth information into the "Secret" field. To access this secret in your script, you first need to add it to your environment through your yml file.
 
-In .github/workflows/main.yml, paste the following code on the line before your python script is run and fill in the name of your repository secret.
+In .github/workflows/main.yml, paste the following code on the line before your python script is run. Replace `AUTH_CREDENTIALS` with your repository secret's name if needed.
 
 ``` yml
 env:
-  SECRET_NAME: ${{ secrets.SECRET_NAME }}
+  AUTH_CREDENTIALS: ${{ secrets.AUTH_CREDENTIALS }}
 ```
 
 So the whole step for running your script should look something like:
@@ -147,7 +147,7 @@ So the whole step for running your script should look something like:
 ``` yml
 - name: execute py script
   env:
-    SECRET_NAME: ${{ secrets.SECRET_NAME }}
+    AUTH_CREDENTIALS: ${{ secrets.AUTH_CREDENTIALS }}
   run: python [your-script]
 ```
 
@@ -157,7 +157,7 @@ You can now access the secret in your python script by importing the [os module]
 import os 
 
 try:
-    credentials = json.loads(os.environ["SECRET_NAME"])
+    credentials = json.loads(os.environ["AUTH_CREDENTIALS"])
 except KeyError:
     credentials = "Token not available!"
 gc = gspread.service_account_from_dict(credentials)
