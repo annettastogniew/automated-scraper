@@ -139,25 +139,25 @@ In .github/workflows/main.yml, paste the following code on the line before your 
 
 ```
 env:
-  [SECRET_NAME]: ${{ secrets.[SECRET_NAME] }}
+  SECRET_NAME: ${{ secrets.SECRET_NAME }}
 ```
 
 So the whole step for running your script should look something like:
 
-```
+``` yml
 - name: execute py script
   env:
-    [SECRET_NAME]: ${{ secrets.[SECRET_NAME]S }}
+    SECRET_NAME: ${{ secrets.SECRET_NAME }}
   run: python [your-script]
 ```
 
 You can now access the secret in your python script by importing the [os module](https://www.w3schools.com/python/module_os.asp) and calling `os.environ["SECRET_NAME"]`. The secret automatically saves as a string in the python script. To use the secret for gspread, you need to change it from a string to a dictionary and call gspread.service_account_from_dict(). 
 
-```
+``` python
 import os 
 
 try:
-    credentials = json.loads(os.environ["AUTH_CREDENTIALS"])
+    credentials = json.loads(os.environ["SECRET_NAME"])
 except KeyError:
     credentials = "Token not available!"
 gc = gspread.service_account_from_dict(credentials)
