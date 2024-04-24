@@ -13,11 +13,9 @@ import sys
 # # Google sheets setup
 # google sheets authentication
 try:
-    credentials = os.environ["AUTH_CREDENTIALS"]
+    credentials = json.loads(os.environ["AUTH_CREDENTIALS"])
 except KeyError:
     credentials = "Token not available!"
-sys.stdout.write("TOKEN: ")
-sys.stdout.write(credentials)
 gc = gspread.authorize(credentials)
 # access sheet
 sht = gc.open_by_url('https://docs.google.com/spreadsheets/d/1WVH-SQ0ziAxLeEm2dm5P3i31Mmr9jmWYWwcMRd6vZGc/edit?usp=sharing')
