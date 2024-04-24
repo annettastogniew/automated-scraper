@@ -46,11 +46,11 @@ Your workflow should run automatically according to your specifications. For ref
 To authenticate gspread for Google Sheets use, check out the [Push to Google Sheets](#push-to-google-sheets) part of this README.
 
 ## Repository structure
-This repository includes a python script that pulls data from [Cal OES](https://gis.data.ca.gov/datasets/CalEMA::power-outage-incidents/explore) power outage API. The script pulls data from the API and pushes results to both a Google sheet and a csv file (oes-pge-outages.csv). 
+This repository includes a python script (cal-oes-scraper.py) that pulls data from [Cal OES](https://gis.data.ca.gov/datasets/CalEMA::power-outage-incidents/explore) power outage API. The script pulls data from the API and pushes results to both a Google sheet and a csv file (oes-pge-outages.csv). 
 
 The repository also includes a .gitignore file to ensure local files that are not essential to the repository are not pushed to Github. 
 
-The .github/workflows/main.yml creates a Github Actions workflow to automate the script.
+The .github/workflows/main.yml file creates a Github Actions workflow to automate the script.
 
 **NOTE:** It seems that Github Actions doesn't like Jupyter Notebook (.ipynb) files. If you're working in Jupyter Notebook, click File > Download as > Python (.py). Add the downloaded python script to your repository. You can edit the python script in VSCode or another python editor and push your changes to Github. Alternatively, you could continue to edit your file in Jupyter Notebook and each time you save your changes, re-download the file and add it to your Github repo.
 
