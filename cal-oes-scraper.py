@@ -8,7 +8,6 @@ import os
 import gspread
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from time import gmtime, strftime
-import sys
 
 # # Google sheets setup
 # google sheets authentication
