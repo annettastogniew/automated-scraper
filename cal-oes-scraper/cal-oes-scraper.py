@@ -36,19 +36,24 @@ data = json.loads(r.content)
 df = pd.DataFrame.from_dict(data["features"])
 # expand properties column into multiple columns
 properties_df = pd.DataFrame.from_dict(list(df["properties"]))
-df.drop(columns="properties", inplace=True)
-# append properties column to original df
-df = pd.concat([df, properties_df], axis=1)
+# expand geometry column into multiple columns
+geometry_df = pd.DataFrame.from_dict(list(df["geometry"]))
+# expand coordinates to individual columns
+geometry_df["latitude"] = geometry_df["coordinates"].apply(lambda x: x[0])
+geometry_df["longitude"] = geometry_df["coordinates"].apply(lambda x: x[1])
+geometry_df.drop(columns="coordinates", inplace=True)
+# drop original geometry and properties columns
+df.drop(columns=["geometry", "properties"], inplace=True)
+# append properties and geometry columns to original df
+df = pd.concat([df, properties_df, geometry_df], axis=1)
 # filter for bay area counties
 bay_df = df.loc[df["County"].isin(bay_counties)]
-# filter for PGE outages
-pge_df = bay_df.loc[df["UtilityCompany"] == "PGE"]
-pge_df.to_csv("cal-oes-scraper/oes_pge_outages.csv")
+bay_df.to_csv("cal-oes-scraper/oes_pge_outages.csv")
 
 
 # # Push to Google sheets
 # clear existing data, push data from dataframe
 tab.clear()
-set_with_dataframe(tab, pge_df)
+set_with_dataframe(tab, bay_df)
 
 
