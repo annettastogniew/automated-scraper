@@ -17,8 +17,8 @@ except KeyError:
     credentials = "Token not available!"
 gc = gspread.service_account_from_dict(credentials)
 # access sheet
-sht = gc.open_by_url('https://docs.google.com/spreadsheets/d/1WVH-SQ0ziAxLeEm2dm5P3i31Mmr9jmWYWwcMRd6vZGc/edit?usp=sharing')
-tab = sht.worksheet("test")
+sht = gc.open_by_url('https://docs.google.com/spreadsheets/d/1d1L7Z7V-FUmIn0lztepKghokTojieBG1WJ2fIM_uQLg/edit?usp=sharing')
+tab = sht.worksheet("Cal OES data")
 
 
 # # Constants
